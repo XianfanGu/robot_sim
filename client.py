@@ -7,13 +7,12 @@ import struct
 from queue import Queue
 from PIL import ImageTk, Image
 import robot
+import psutil
 import io
 import sys
 import math
 import cv2 as cv
-from matplotlib import pyplot as plt
 np.set_printoptions(threshold=sys.maxsize)
-import time
 from threading import Thread
 
 
@@ -42,7 +41,7 @@ def template_match(img,query):
     query = cv.cvtColor(np.array(query), cv.COLOR_RGB2BGR)
 
 
-    # SIFT查找关键点和描述器
+    # SIFT查找关键特征点和距离
     kp1, des1 = sift.detectAndCompute(img, None)
     kp2, des2 = sift.detectAndCompute(query, None)
 
@@ -186,6 +185,7 @@ class Client(tk.Frame):
         self.displayer = threading.Thread(target=self.display, name='DisplayThread')
 
         self.window = window
+        self.window.protocol("WM_DELETE_WINDOW", self.quit)
         self.window.wm_withdraw()
         self.queue = Queue()
         self.create_ui()
@@ -249,6 +249,7 @@ class Client(tk.Frame):
             except Exception as e:
                 print(e)
                 self.s.close()
+                return
             self.run = True
             if not self.have_started:
                 self.displayer.start()
@@ -361,6 +362,20 @@ class Client(tk.Frame):
             print(e)
             self.s.close()
 
+    def quit(self):
+        self.s.close()
+        self.window.destroy()
+        PROCNAME = "client.py"
+        try:
+            for proc in psutil.process_iter():
+                # check whether the process name matches
+                cmdline = proc.cmdline()
+                if len(cmdline) >= 2 and "python" in cmdline[0] and cmdline[1] == PROCNAME:
+                    # print(proc)
+                    proc.kill()
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            return False
+        sys.exit()
 r = robot.Robot()
 r.start()
 window = tk.Tk()

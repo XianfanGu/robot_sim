@@ -25,7 +25,8 @@ class Robot(Thread):
                 self.txt = txt
             except Exception as e:
                 print(e)
-                continue
+                self.s.close()
+                return
 
     def send_method(self): #发送给客户端接口
         while True:
@@ -63,7 +64,7 @@ class Robot(Thread):
             except Exception as e:
                 print(e)
                 self.s.close()
-                continue
+                return
 
     def run(self):
         t1 = Thread(target=self.listen_method)#启动监听线程

@@ -10,9 +10,12 @@
 
 
 需要环境：
-OpenCV: `pip install cv2`
-PIL: `pip install pillow`
-Tkinter: python自带
+OpenCV: `pip3 install opencv-python`
+PIL: `pip3 install pillow`
+`sudo apt-get install python3-pil python3-pil.imagetk`
+Tkinter: `sudo apt-get install python3-tk`
+Numpy: `pip3 install numpy`
+
 
 
 ### 系统逻辑 ###
