@@ -7,7 +7,6 @@ import struct
 from queue import Queue
 from PIL import ImageTk, Image
 import robot
-import psutil
 import io
 import sys
 import math
@@ -365,16 +364,6 @@ class Client(tk.Frame):
     def quit(self):
         self.s.close()
         self.window.destroy()
-        PROCNAME = "client.py"
-        try:
-            for proc in psutil.process_iter():
-                # check whether the process name matches
-                cmdline = proc.cmdline()
-                if len(cmdline) >= 2 and "python" in cmdline[0] and cmdline[1] == PROCNAME:
-                    # print(proc)
-                    proc.kill()
-        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-            return False
         sys.exit()
 r = robot.Robot()
 r.start()
