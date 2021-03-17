@@ -74,12 +74,23 @@ IxÎªÏñËØµãÔÚx·½ÏòµÄÌÝ¶È£¬IyÎªÏñËØµãÔÚy·½ÏòµÄÌÝ¶È, KÕâÀïÉèÖÃÎª0.04,µ±RµÄÖµ´óÓÚÒ»¶
 ±éÀúÁÚ½ü·½·¨Îª£¬Ñ°ÕÒËùÓÐÎ´²éÑ¯µãÖÐ¾àÀë×î½üµÄÒ»¸ö£¬Ö±µ½¾ÛÀàÈºÌåÖÐµÄµãµÄÊýÄ¿´ïµ½ÉèÖÃµÄ×îÐ¡ÊýÄ¿¡£
 
 
-### Step 2(·½·¨): PythonÔËÐÐ¿Í»§¶Ë###
+### Step 2(µÚÒ»²¿·Ö): PythonÔËÐÐ¿Í»§¶Ë###
 ·þÎñ¶ËÒÑ×÷ÎªÏß³ÌÐ´Èë¿Í»§¶ËÖ÷º¯Êý
 
 `python3 client.py
 `
 µã»÷startºó¿É³¢ÊÔ²»Í¬Í¼Ïñ½á¹û¡£»òÕßÏÈÑ¡ÔñÍ¼Ïñ´¦ÀíÄ£Ê½ÔÙµã»÷start
+
+### Step 3(µÚ¶þ²¿·Ö): PythonÔËÐÐ¶Ë¿ÚÏÔÊ¾###
+·½·¨ÏÈÍ¨¹ý½ÓÊÕudpÖ¡²¢½«×Ö½ÚÁ÷×ª»»Îª16½øÖÆ×Ö·û´®£¬²¢½«Ã¿Ò»Í¨µÀµÄ2×Ö½ÚÀ©Õ¹Îª¡°####0000¡±µÄËÄ×Ö½Ú×Ö·û´®£¬×îºóÔÙ×ªÎªËÄ×Ö½Ú¸¡µãÊý¡£
+
+
+ÉèÖÃ³ÌÐòÈ¨ÏÞ£º`chmod 777 send` 
+Ö´ÐÐ·¢ËÍ£º`./send`
+
+ÔËÐÐÏÔÊ¾³ÌÐò`python3 robot_server.py`
+
+
 
 
 ### ²âÊÔ½á¹û ###
@@ -111,6 +122,11 @@ Harris½ÇµãÍ¼Ïñ£º
 FLANNÄ£°åÆ¥ÅäÍ¼Ïñ£º
 <p align="center">
   <img src="images/11.PNG" width=1200 height=600>
+</p>
+
+¶Ë¿Ú½á¹ûÏÔÊ¾£º
+<p align="center">
+  <img src="images/12.PNG" width=1200 height=600>
 </p>
 
 

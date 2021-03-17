@@ -7,6 +7,7 @@ import struct
 from queue import Queue
 from PIL import ImageTk, Image
 import robot
+import psutil
 import io
 import sys
 import math
@@ -167,8 +168,9 @@ def find_harris_corners(input_img, k=0.04, window_size=5, threshold = 10000.00):
 
 
 class Client(tk.Frame):
-    def __init__(self, window):
+    def __init__(self, window,r):
         tk.Frame.__init__(self, window)
+        self.r = r
         self.url = "127.0.0.1"
         self.port = 9000
         self.photo = None
@@ -363,10 +365,11 @@ class Client(tk.Frame):
 
     def quit(self):
         self.s.close()
+        self.r.quit()
         self.window.destroy()
         sys.exit()
 r = robot.Robot()
 r.start()
 window = tk.Tk()
-client = Client(window)
+client = Client(window,r)
 window.mainloop()

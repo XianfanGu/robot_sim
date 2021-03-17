@@ -4,6 +4,7 @@ import io
 import struct
 from threading import Thread
 import time
+import sys
 class Robot(Thread):
     def __init__(self):
         super(Robot,self).__init__()
@@ -65,6 +66,8 @@ class Robot(Thread):
                 print(e)
                 self.s.close()
                 return
+    def quit(self):
+        self.s.close()
 
     def run(self):
         t1 = Thread(target=self.listen_method)#启动监听线程
