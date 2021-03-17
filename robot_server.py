@@ -13,6 +13,7 @@ import sys
 import time
 import threading
 
+#tkinter的frame类
 class RobotServer(tk.Frame):
     def __init__(self, window):
         tk.Frame.__init__(self, window)
@@ -21,9 +22,11 @@ class RobotServer(tk.Frame):
         self.listen_port = 6789
         self.buffer_size = 19
         self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.s.bind(('127.0.0.1', self.listen_port))
+        self.s.bind(('127.0.0.1', self.listen_port))#绑定发送端口
         self.txt = ""
         self.continuePlotting = False
+        
+        # 储存通道数据
         self.data_point = []
         self.data_point1 = []
         self.data_point2 = []
@@ -33,6 +36,7 @@ class RobotServer(tk.Frame):
         self.data_point6 = []
         self.data_point7 = []
 
+        # 构建tkinter的matplot画图
         self.fig = plt.figure(figsize=(14, 5), dpi=100)
         self.fig.subplots_adjust(hspace=.5)
 
@@ -94,15 +98,16 @@ class RobotServer(tk.Frame):
         self.window.protocol("WM_DELETE_WINDOW", self.quit)
 
 
-    def listen_method(self): #监听客户端接口
+    def listen_method(self): #监听接口
         while True:
             try:
                 data, self.address = self.s.recvfrom(self.buffer_size)
-                arr = [data[i:i+1].hex() for i in range(len(data))]
+                arr = [data[i:i+1].hex() for i in range(len(data))]# bytes转换成hex string
                 arr = arr[1:17]
-                hex_list = [arr[i+1]+arr[i]+"0000" for i in range(0,len(arr),2)]
+                hex_list = [arr[i+1]+arr[i]+"0000" for i in range(0,len(arr),2)]# byte1和byte2交换位置，并在其后面加两个字节的0
+               
                 #print(hex_list)
-                if(len(self.data_point)>=50):
+                if(len(self.data_point)>=50):# 设定只显示最新的50个数据
                     self.data_point.pop(0)
                 self.data_point.append(10**41*float(struct.unpack('<f', bytes.fromhex(hex_list[0]))[0]))
                 if(len(self.data_point1)>=50):
@@ -136,6 +141,7 @@ class RobotServer(tk.Frame):
         t1 = Thread(target=self.listen_method)#启动监听线程
         t1.start()
 
+        # 数据更新接口
     def update(self,i):
         print(self.data_point)
         self.line1.set_data([i for i in range(len(self.data_point))], self.data_point)
